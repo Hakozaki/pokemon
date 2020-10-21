@@ -24,6 +24,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -119,6 +120,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "pokemon"
+    }
+  },
+  "defaultProject": "pokemon",
+  "cli": {
+    "analytics": "07e747b8-99d4-4750-b6ff-793990251d8b"
+  }
 }
