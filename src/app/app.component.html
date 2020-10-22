@@ -16,7 +16,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let pokemon of pokemons">
+      <tr *ngFor="let pokemon of pokemons | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
         <td style="width: 20px">
           <img [src]="pokemon.sprite" alt="VTNC" class="border">
         </td>
@@ -36,4 +36,5 @@
       </tr>
     </tbody>
   </table>
+  <ngb-pagination  [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize" [maxSize]="5"></ngb-pagination>
 </div>
