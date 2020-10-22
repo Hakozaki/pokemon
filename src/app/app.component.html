@@ -16,7 +16,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let pokemon of pokemons | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+      <tr *ngFor="let pokemon of pokemons | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize"
+        (click)="open(content , pokemon.id)">
         <td style="width: 20px">
           <img [src]="pokemon.sprite" alt="VTNC" class="border">
         </td>
@@ -36,5 +37,31 @@
       </tr>
     </tbody>
   </table>
-  <ngb-pagination  [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize" [maxSize]="5"></ngb-pagination>
+  <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize" [maxSize]="5">
+  </ngb-pagination>
 </div>
+
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">#{{pokemon.id}} {{ pokemon.name | uppercase }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-12">
+        <img [src]="pokemon.sprite" alt="VTNC" class="border">
+      </div>
+      <div class="col-md-12">
+        <h5><span *ngFor="let type of pokemon.types" class="badge badge-secondary">
+            {{ type.type.name }}
+          </span></h5>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+  </div>
+</ng-template>

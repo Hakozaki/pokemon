@@ -3,8 +3,7 @@ import { Pokemon } from './pokemon.model';
 import { PokemonService } from './pokemon.service';
 import { Component, PipeTransform } from '@angular/core';
 import { FormBuilder, FormGroup, Validator } from '@angular/forms';
-import { map, startWith } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-root',
@@ -17,14 +16,16 @@ export class AppComponent {
   collectionSize;
   pageSize = 5;
   page = 1;
-
-
+  //LISTA DE POKEMONS
   pokemons: Pokemon[] = [];
   pokemonForm: FormGroup;
+  //MODAL
+  pokemon: Pokemon;
 
   constructor(
     private pokemonService: PokemonService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private modalService: NgbModal
   ) { }
 
   private buildForm() {
@@ -72,5 +73,32 @@ export class AppComponent {
     this.buildForm();
     this.getAll();
   }
+
+  closeResult = '';
+
+  open(content, id) {
+    this.pokemonService.getByNameOrId(id).subscribe(
+      (result) => {
+        this.pokemon = result;
+        this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+          this.closeResult = `Closed with: ${result}`;
+        }, (reason) => {
+          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        });
+      }
+    )
+
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
 
 }
