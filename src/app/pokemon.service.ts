@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Pokemon } from './pokemon.model';
 import { Observable, throwError } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
@@ -38,21 +38,18 @@ export class PokemonService {
 
 
   //METODOS PRIVADOS
-  private jsonDataToPokemons(jsonData: any[]): Pokemon[] {
-    console.log('jsondata[]');
+  private jsonDataToPokemons(jsonData: any[]): Pokemon[] {    
     console.log(jsonData);
     const pokemons: Pokemon[] = [];
     jsonData['results'].forEach(element => pokemons.push(Object.assign(new Pokemon(), element)));
     return pokemons;
   }
 
-  private jsonDataToPokemon(jsonData: any): Pokemon {
-    console.log('jsondata');
+  private jsonDataToPokemon(jsonData: any): Pokemon {    
     return Object.assign(new Pokemon(), jsonData);
   }
 
-  private handleError(erro: any): Observable<any> {
-    console.log("ERRO NA REQUISIÇÃO =>", erro);
+  private handleError(erro: any): Observable<any> {    
     return throwError(erro);
   }
 }

@@ -1,8 +1,10 @@
 import { Pokemon } from './pokemon.model';
 
 import { PokemonService } from './pokemon.service';
-import { Component } from '@angular/core';
+import { Component, PipeTransform } from '@angular/core';
 import { FormBuilder, FormGroup, Validator } from '@angular/forms';
+import { map, startWith } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -39,9 +41,27 @@ export class AppComponent {
       );
   }
 
+  /**
+   * Faz a fuiltragem no array de pokemons
+   * @param text 
+   */
+  search(text: string) {    
+    this.pokemons = this.pokemons.filter(pokemon => {
+      const term = text.toLowerCase();
+      return pokemon.name.toLowerCase().includes(term);
+    });
+  }
+
+  /**
+   * Rotina do botão pesquisar da tabela
+   */
+  pesquisar(){    
+    this.search(this.pokemonForm.controls['name'].value)
+  }
+
   ngOnInit() {
     this.buildForm();
-    this.getAll();
+    this.getAll();    
   }
 
 }

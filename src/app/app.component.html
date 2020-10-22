@@ -1,23 +1,23 @@
 <div class="container">
   <form [formGroup]="pokemonForm">
-    <div class="form-group">
-      <label for="pokemonName">Pokémon:</label>
-      <input type="text" class="form-control" id="name" formControlName="name">
+    <div class="input-group mt-2">
+      <input type="text" class="form-control" id="name" formControlName="name" placeholder="Pesquisar">
+      <div class="input-group-append" id="button-addon4">
+        <button class="btn btn-outline-primary" type="button" (click)="pesquisar()">Pesquisar</button>
+      </div>
     </div>
   </form>
 
   <table class="table table-sm table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th scope="col" sortable="name">Pokémon</th>
+      </tr>
+    </thead>
     <tbody>
-      <thead>
-        <th>
-          #
-        </th>
-        <td scope="col" sortable="name">
-          Pokémon
-        </td>
-      </thead>
       <tr *ngFor="let pokemon of pokemons">
-        <td style="width: 20px"> 
+        <td style="width: 20px">
           <img [src]="pokemon.sprite" alt="VTNC" class="border">
         </td>
         <td>
