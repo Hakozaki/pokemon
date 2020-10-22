@@ -19,7 +19,7 @@ export class PokemonService {
    * Retorna todos os pokemons
    */
   getAll(): Observable<Pokemon[]> {
-    const url = `${this.api}?offset=0&limit=20`;
+    const url = `${this.api}?offset=0&limit=200`;
 
     return this.http.get(url).pipe(
       catchError(this.handleError),

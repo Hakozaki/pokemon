@@ -2,6 +2,7 @@ import { Pokemon } from './pokemon.model';
 
 import { PokemonService } from './pokemon.service';
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validator } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -11,12 +12,20 @@ import { Component } from '@angular/core';
 export class AppComponent {
 
   pokemons: Pokemon[] = [];
+  pokemonForm: FormGroup;
 
   constructor(
-    private pokemonService: PokemonService
+    private pokemonService: PokemonService,
+    private formBuilder: FormBuilder
   ) { }
 
-  ngOnInit() {
+  private buildForm() {
+    this.pokemonForm = this.formBuilder.group({
+      name: [null]
+    });
+  }
+
+  private getAll() {
     this.pokemonService.getAll()
       .subscribe(
         (result) => {
@@ -24,13 +33,15 @@ export class AppComponent {
             this.pokemonService.getByNameOrId(e.name)
               .subscribe(
                 result => this.pokemons.push(result)
-              )            
+              )
           })
         }
       );
   }
 
-  botao() {
-    console.log('pokemons', this.pokemons)
+  ngOnInit() {
+    this.buildForm();
+    this.getAll();
   }
+
 }

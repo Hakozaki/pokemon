@@ -15,10 +15,11 @@ export class Pokemon {
     get sprite(): string {
         return this.sprites.front_default;
     }
+
     get typeText(): string {
         let retorno = '';
         this.types.forEach(e => {
-            retorno = retorno + ' ' + e.type.name;
+            retorno = retorno + e.type.name;
         })
         return retorno;
     }
