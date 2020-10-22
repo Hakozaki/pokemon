@@ -38,6 +38,7 @@ export class AppComponent {
     this.pokemonService.getAll()
       .subscribe(
         (result) => {
+          this.pokemons = [];
           result.forEach(e => {
             this.pokemonService.getByNameOrId(e.name)
               .subscribe(
@@ -56,10 +57,16 @@ export class AppComponent {
    * @param text 
    */
   search(text: string) {
-    this.pokemons = this.pokemons.filter(pokemon => {
-      const term = text.toLowerCase();
-      return pokemon.name.toLowerCase().includes(term);
-    });
+    if (text) {
+      this.pokemons = this.pokemons.filter(pokemon => {
+        const term = text.toLowerCase();
+        return pokemon.name.toLowerCase().includes(term);
+      });
+      this.collectionSize = this.pokemons.length;
+    } else {
+      this.getAll();
+    }
+
   }
 
   /**

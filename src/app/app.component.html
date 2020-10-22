@@ -31,7 +31,7 @@
           </strong>
           <br>
           <h5><span *ngFor="let type of pokemon.types" class="badge badge-secondary">
-              {{ type.type.name }}
+              {{ type.type.name | uppercase }}
             </span></h5>
         </td>
       </tr>
@@ -56,7 +56,7 @@
       </div>
       <div class="col-md-12">
         <h5><span *ngFor="let type of pokemon.types" class="badge badge-secondary">
-            {{ type.type.name }}
+            {{ type.type.name | uppercase }}
           </span></h5>
       </div>
     </div>
